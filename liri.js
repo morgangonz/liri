@@ -87,7 +87,7 @@ function movieThis(command2){
 	    console.log('Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn\'t choose, anything is possible.');
 	    console.log('Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');
 	   
-		}
+	}	
 
 	});
 };

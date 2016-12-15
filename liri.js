@@ -1,17 +1,16 @@
 // fs is an NPM package for reading and writing files
 var fs = require("fs");
-var keys = require("./keys.js");
+var key = require("./keys.js");
 var Twitter = require('twitter');
+var request = require("request");
+var SpotifyWebApi = require('spotify-web-api-node');
 
-var client = new Twitter({
-  consumer_key: keys.twitterKeys.consumer_key,
-  consumer_secret: keys.twitterKeys.consumer_secret,
-  access_token_key: keys.twitterKeys.access_token_key,
-  access_token_secret: keys.twitterKeys.access_token_secret
-});
+
 
 var command = process.argv[2];
 var command2 = process.argv[3];
+
+var queryUrl = "http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&r=json";
 
 	if (command === 'my-tweets') {
 		myTweets();
@@ -29,50 +28,116 @@ var command2 = process.argv[3];
 
 
 function myTweets(){
-	client.get('statuses/user/timeline', function(error, tweets, response) {
-  if(error) throw error;
-  console.log(tweets);  // The favorites. 
-  console.log(response);  // Raw response object. 
-});
-};
+
+	
+
+	var client = new Twitter({
+              consumer_key: key.twitterKeys.consumer_key,
+              consumer_secret: key.twitterKeys.consumer_secret,
+              access_token_key: key.twitterKeys.access_token_key,
+              access_token_secret: key.twitterKeys.access_token_secret,
+            });
+
+    var params = {screen_name: 'morgangonzz'};
+
+		client.get('statuses/user_timeline', params, function(error, tweets, response) {
+
+         if(!error ) {
+
+            for( var i = 0; i < tweets.length; i ++){
+
+            console.log(tweets[i].text);
+
+            }
+
+          }else {
+
+            console.log(error);
+          }
+          
+     });
+
+}
 
 function movieThis(command2){
-	console.log(command2);
+	//console.log(queryUrl);
+	request(queryUrl, function(error, response, body) {
+
+	  // If the request is successful
+	  if (!error && response.statusCode === 200) {
+
+	    console.log('Title: ' + JSON.parse(body).Title); 
+	    console.log('Year: ' + JSON.parse(body).Year);
+	    console.log('IMDB Rating: ' + JSON.parse(body).imdbRating); 
+	    console.log('Country: ' + JSON.parse(body).Country);
+	    console.log('Language: ' + JSON.parse(body).Language);
+	    console.log('Plot: ' + JSON.parse(body).Plot);
+	    console.log('Actors: ' + JSON.parse(body).Actors);
+
+   
+    
+	  } else {
+	  	console.log('Title: Mr.Nobody ' ); 
+	    console.log('Year: 2009');
+	    console.log('IMDB Rating: 7.9'); 
+	    console.log('Country: Belgium, Germany, Canada, France');
+	    console.log('Language: English, Mohawk');
+	    console.log('Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn\'t choose, anything is possible.');
+	    console.log('Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');
+	   
+		}
+
+	});
 };
 
-function spotifyThisSong(command2){
-	console.log(command2);
-};
+
 
 function doWhatItSays(command2){
-	console.log(command2);
+	console.log();
 };
 
 
 
-//to grab data from the keys.js file...
-// fs.readFile("keys.js", "utf8", function(data) {
-
-//   // We will then print the contents of data inside keys.js file
-//   console.log(data);
-
-//   // Then split it by commas (to make it more readable)
-//   var keys = data.split(",");
-
-//   // We will then re-display the content as an array for later use.
-//   console.log(keys);
-
-// });
-
-// /////twitter from npm, copyright 
-// if process.argv[2] == 'my-tweets' {
-// 	console.log(///////)
-// };
+function spotifyThisSong(){
+	//console.log(command2);
 
 
 
 
+var spotifyApi = new SpotifyWebApi();
+//wrong info in () had id but would return only spanish artist. so tried new method, still buggie
+/*
+spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+  .then(function(data) {
+    console.log('Artist information', data.body);
+  }, function(err) {
+    console.error(err);
+  });
+*/
 
-// client.get(path, params, callback);
+spotifyApi.get('Artist information', function(error, artist, track, album){
+    
+    if (command2 ) {
+    	console.log('Artist information', data.body); 
+    }
 
-// client.stream(path, params, callback);
+    else {
+    		console.log('"The Sign" by Ace of Base');
+    	}
+    
+  
+
+});
+
+
+
+
+
+
+
+
+
+}
+
+
+

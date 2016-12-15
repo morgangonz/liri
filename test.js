@@ -1,84 +1,72 @@
+// fs is an NPM package for reading and writing files
+var fs = require("fs");
+var request = require("request");
+var SpotifyWebApi = require('spotify-web-api-node');
 
-// var key = require(./keys.js)
-// var Twitter = require('twitter');
+var command = process.argv[2];
+var command2 = process.argv[3];
+
+if (command === 'my-tweets') {
+    myTweets();
+  } else if (command === 'movie-this') {
+    movieThis(command2);
+  } else if (command === 'spotify-this-song') {
+    spotifyThisSong(command2);
+  } else if (command === 'do-what-it-says') {
+    doWhatItSays(command2);
+  }else if(command === undefined){
+    console.log('You forgot to enter a command!');
+  } else {
+    console.log('That is not a command');
+  };
+
+//////////////spotify api commands 
+
+/*function spotifyThisSong(){
+  //console.log(command2);
 
 
 
-// var client = new Twitter({
-//   consumer_key: keys.twitterKeys.consumer_key,
-//   consumer_secret: keys.twitterKeys.consumer_secret,
-//   access_token_key: keys.twitterKeys.access_token_key,
-//   access_token_secret: keys.twitterKeys.access_token_secret
-// });
 
-// var command = process.argv[2];
-// var command2 = process.argv[3];
+var spotifyApi = new SpotifyWebApi();
+//wrong info in () had id but would return only spanish artist. so tried new method, still buggie
+/*
+spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
+  .then(function(data) {
+    console.log('Artist information', data.body);
+  }, function(err) {
+    console.error(err);
+  });
+*
 
-// 	if (command === 'my-tweets') {
-// 		myTweets();
-// 	};	
+spotifyApi.get('Artist information', function(error, artist, track, album){
+    
+    if (command2 ) {
+      console.log('Artist information', data.body); 
+    }
 
+    else {
+        console.log('"The Sign" by Ace of Base');
+      }
+    
+  
 
-// function myTweets(){
+});
+*/
 
-// 	var params = { screenName: 'morgangonzz'};
+////////////random.txt file - read it 
 
-// 	client.get('statuses/user/timeline', function(error, tweets, response) {
-// 	  if(error) throw error;
-// 	  for (var i = 0; i < tweets.length; i++) {
-// 	  console.log(tweets[i].text);  // The favorites. 
-// 	  //console.log(response);  // Raw response object. 
-// 		}
-// 	});
-// };
-var action = process.argv[2];
+function doWhatItSays(command2){
+ 
 
-switch(action){
-	case "my-tweets":
-    twitter();
-    break;
-    case "movie-this":
-    movie();
-    break;
+// This block of code will read from the "movies.txt" file.
+// It's important to include the "utf8" parameter or the code will provide stream data (garbage)
+// The code will store the contents of the reading inside the variable "data"
+  fs.readFile("random.txt", "utf8", function(error, data) {
+
+  console.log(data);
+
+  });
 }
 
 
-function twitter() {
-    // this is getting the keys from the file    
-        var key = require('./keys.js');
-
-      // requiring twitter
-        var Twitter = require('twitter');
-
-    // setting keys to the client variable 
-        var client = new Twitter({
-              consumer_key: key.twitterKeys.consumer_key,
-              consumer_secret: key.twitterKeys.consumer_secret,
-              access_token_key: key.twitterKeys.access_token_key,
-              access_token_secret: key.twitterKeys.access_token_secret,
-            });
-        //
-
-        var params = {screen_name: 'morgangonzz'};
-
-        client.get('statuses/user_timeline', params, function(error, tweets, response) {
-
-         if(!error ) {
-
-            for( var i = 0; i < tweets.length; i ++){
-
-            console.log(tweets[i].text);
-
-            }
-
-          }else {
-
-            console.log(error);
-          }
-          
-     });
-
-}
- function movie(){
-
- }

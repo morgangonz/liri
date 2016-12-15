@@ -27,6 +27,8 @@ var queryUrl = "http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&r=json"
 	};
 
 
+
+
 function myTweets(){
 
 	
@@ -92,52 +94,26 @@ function movieThis(command2){
 
 
 
+////////////random.txt file - read it 
+
 function doWhatItSays(command2){
-	console.log();
-};
+ 
 
 
+  fs.readFile("random.txt", "utf8", function(error, data) {
 
-function spotifyThisSong(){
-	//console.log(command2);
+  console.log(data);
 
-
-
-
-var spotifyApi = new SpotifyWebApi();
-//wrong info in () had id but would return only spanish artist. so tried new method, still buggie
-/*
-spotifyApi.getArtist('2hazSY4Ef3aB9ATXW7F5w3')
-  .then(function(data) {
-    console.log('Artist information', data.body);
-  }, function(err) {
-    console.error(err);
   });
-*/
-
-spotifyApi.get('Artist information', function(error, artist, track, album){
-    
-    if (command2 ) {
-    	console.log('Artist information', data.body); 
-    }
-
-    else {
-    		console.log('"The Sign" by Ace of Base');
-    	}
-    
-  
-
-});
-
-
-
-
-
-
-
-
-
 }
+
+
+/////////////////////////////
+
+
+
+
+
 
 
 

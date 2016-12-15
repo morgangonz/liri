@@ -15,7 +15,18 @@ var queryUrl = "http://www.omdbapi.com/?t=" + command2 + "&y=&plot=short&r=json"
 	if (command === 'my-tweets') {
 		myTweets();
 	} else if (command === 'movie-this') {
+		if (command2 === undefined) {
+			console.log('Title: Mr.Nobody ' ); 
+		    console.log('Year: 2009');
+		    console.log('IMDB Rating: 7.9'); 
+		    console.log('Country: Belgium, Germany, Canada, France');
+		    console.log('Language: English, Mohawk');
+		    console.log('Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn\'t choose, anything is possible.');
+		    console.log('Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');	
+
+		} else {
 		movieThis(command2);
+		}
 	} else if (command === 'spotify-this-song') {
 		spotifyThisSong(command2);
 	} else if (command === 'do-what-it-says') {
@@ -64,30 +75,23 @@ function myTweets(){
 function movieThis(command2){
 	//console.log(queryUrl);
 	request(queryUrl, function(error, response, body) {
-
+		var newBody = JSON.parse(body)
 	  // If the request is successful
 	  if (!error && response.statusCode === 200) {
 
-	    console.log('Title: ' + JSON.parse(body).Title); 
-	    console.log('Year: ' + JSON.parse(body).Year);
-	    console.log('IMDB Rating: ' + JSON.parse(body).imdbRating); 
-	    console.log('Country: ' + JSON.parse(body).Country);
-	    console.log('Language: ' + JSON.parse(body).Language);
-	    console.log('Plot: ' + JSON.parse(body).Plot);
-	    console.log('Actors: ' + JSON.parse(body).Actors);
+	    console.log('Title: ' + newBody.Title); 
+	    console.log('Year: ' + newBody.Year);
+	    console.log('IMDB Rating: ' + newBody.imdbRating); 
+	    console.log('Country: ' + newBody.Country);
+	    console.log('Language: ' + newBody.Language);
+	    console.log('Plot: ' + newBody.Plot);
+	    console.log('Actors: ' + newBody.Actors);
 
    
     
-	  } else {
-	  	console.log('Title: Mr.Nobody ' ); 
-	    console.log('Year: 2009');
-	    console.log('IMDB Rating: 7.9'); 
-	    console.log('Country: Belgium, Germany, Canada, France');
-	    console.log('Language: English, Mohawk');
-	    console.log('Plot: A boy stands on a station platform as a train is about to leave. Should he go with his mother or stay with his father? Infinite possibilities arise from this decision. As long as he doesn\'t choose, anything is possible.');
-	    console.log('Actors: Jared Leto, Sarah Polley, Diane Kruger, Linh Dan Pham');
+	  } 
 	   
-	}	
+		
 
 	});
 };

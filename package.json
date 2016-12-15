@@ -1,0 +1,27 @@
+{
+  "name": "liriapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "liri.js",
+  "dependencies": {
+    "request": "^2.79.0",
+    "spotify": "^0.3.0",
+    "spotify-web-api-node": "^2.3.6",
+    "twitter": "^1.7.0",
+    "weather-js": "^1.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morgangonz/liri.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/morgangonz/liri/issues"
+  },
+  "homepage": "https://github.com/morgangonz/liri#readme"
+}

@@ -3,7 +3,7 @@ var fs = require("fs");
 var key = require("./keys.js");
 var Twitter = require('twitter');
 var request = require("request");
-var SpotifyWebApi = require('spotify-web-api-node');
+var spotify = require('spotify');
 
 
 
@@ -112,12 +112,32 @@ function doWhatItSays(command2){
 }
 
 
-/////////////////////////////
+/////////////////////////////spotify command 
+
+function spotifyThisSong(command2){
+  //console.log(command2);
+
+spotify.search({ type: 'track', query: command2 }, function(err, data) {
+    if ( err ) {
+        console.log('Error occurred: ' + err);
+        return;
+    }
+   else {
+    
+    var songInfo = data.tracks.items[0];
+ 	console.log(songInfo.artists[0].name);
+	console.log(songInfo.name);
+	console.log(songInfo.album.name);
+	console.log(songInfo.preview_url);
+	
+	}	
+   
+});
 
 
 
 
-
+};
 
 
 
